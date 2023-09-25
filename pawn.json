@@ -1,6 +1,6 @@
 {
 	"user": "Warboot-openmp",
-	"repo": "teams+",
+	"repo": "teams",
 	"entry": "test.pwn",
 	"output": "test.amx",
 	"dependencies": [
