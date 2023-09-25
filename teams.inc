@@ -31,6 +31,23 @@
 // --
 // Header
 // --
+
+/** 
+ * <library>messages</library>
+ * <summary>Sends a message to a team.</summary>
+ * <param name="color">Color.</param>
+ * <param name="teamid">Team to send message to.</param>
+ * <param name="message">Text to send.</param>
+ * <returns>False if team is invalid, otherwise true.</returns>
+ */
+forward bool: Team_SendMessage(color, Team: teamid, const string: message[144]);
+
+/** 
+ * <library>messages</library>
+ * <summary>Gets player rank.</summary>
+ * <param name="playerid">Player we get rank from.</param>
+ * <returns>Player's rank.</returns>
+ */
 forward TeamRank: Team_GetPlayerRank(playerid);
 
 /** 
@@ -191,6 +208,7 @@ stock bool: Team_Delete(Team: teamid)
     }
     Team_gsMaxMembers[teamid] = 0;
     Team_gsName[teamid][0] = EOS;
+    ChatGroup_Delete(Team_gsChatGroup[teamid]);
     
     return true;
 }
@@ -218,6 +236,7 @@ stock Error: Team_AddMember(Team: teamid, playerid)
     }
     Iter_Add(Team_gsPlayerList[teamid], playerid);
     Player_gsTeam[playerid] = teamid;
+    ChatGroup_AddMember(Team_gsChatGroup[teamid], playerid);
     return Ok();
 }
 
@@ -235,6 +254,7 @@ stock Error: Team_RemoveMember(Team: teamid, playerid)
     }
     Iter_Remove(Team_gsPlayerList[teamid], playerid);
     Player_gsTeam[playerid] = Team: INVALID_TEAM;
+    ChatGroup_RemoveMember(Team_gsChatGroup[teamid], playerid);
     return Ok();
 }
 
@@ -302,6 +322,16 @@ stock bool: Team_GetRankName(Team: teamid, TeamRank: rankid, dest[MAX_RANK_NAME]
         return false;
     }
     strcopy(dest, Rank_gsName[teamid][rankid], len);
+    return true;
+}
+
+stock bool: Team_SendMessage(color, Team: teamid, const string: message[144])
+{
+    if(!Team_IsValid(teamid))
+    {
+        return false;
+    }
+    ChatGroup_SendMessage(ChatGroup: teamid, color, message);
     return true;
 }
 

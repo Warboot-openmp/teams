@@ -70,6 +70,9 @@ public OnPlayerConnect(playerid)
 	Team_RemoveRank(police, first);
 
 	printf("0. Player team %d & rank %d", _:Team_GetPlayer(playerid), _:Team_GetPlayerRank(playerid));
+	Team_SendMessage(-1, police, "Test");
+	Team_RemoveMember(police, playerid);
+	Team_SendMessage(-1, police, "Test");
 
 	return 1;
 }
