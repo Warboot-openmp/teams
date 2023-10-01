@@ -40,7 +40,7 @@
  * <param name="message">Text to send.</param>
  * <returns>False if team is invalid, otherwise true.</returns>
  */
-forward bool: Team_SendMessage(color, Team: teamid, const string: message[144]);
+forward bool: Team_SendMessage(color, Team: teamid, const string: message[144], OPEN_MP_TAGS: ...);
 
 /** 
  * <library>messages</library>
@@ -325,13 +325,13 @@ stock bool: Team_GetRankName(Team: teamid, TeamRank: rankid, dest[MAX_RANK_NAME]
     return true;
 }
 
-stock bool: Team_SendMessage(color, Team: teamid, const string: message[144])
+stock bool: Team_SendMessage(color, Team: teamid, const string: message[144], OPEN_MP_TAGS: ...)
 {
     if(!Team_IsValid(teamid))
     {
         return false;
     }
-    ChatGroup_SendMessage(ChatGroup: teamid, color, message);
+    ChatGroup_SendMessage(ChatGroup: teamid, color, message, ___(3));
     return true;
 }
 
