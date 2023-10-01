@@ -342,6 +342,7 @@ stock bool: Team_SendMessage(color, Team: teamid, const string: message[144], OP
 hook OnPlayerConnect(playerid)
 {
     Player_gsTeam[playerid] = Team: INVALID_TEAM;
+    Player_gsRank[playerid] = TeamRank: INVALID_TEAM_RANK;
     return Y_HOOKS_CONTINUE_RETURN_1;
 }
 
