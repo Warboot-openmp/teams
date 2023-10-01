@@ -265,7 +265,7 @@ stock Team: Team_GetPlayer(playerid)
 
 stock bool: Team_IsValidRank(Team: teamid, TeamRank: rankid)
 {
-    return (Team_IsValid(teamid) || Iter_Contains(Team_gsRanks[teamid], _:rankid));
+    return (Team_IsValid(teamid) && Iter_Contains(Team_gsRanks[teamid], _:rankid));
 }
 
 stock TeamRank: Team_AddRank(Team: teamid, const name[MAX_RANK_NAME])
